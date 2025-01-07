@@ -1,7 +1,7 @@
 /* Importera npm-paket sqlite3 med hjälp av require() och lagrar i variabeln sqlite */
 const sqlite = require('sqlite3').verbose();
 /* Skapar ny koppling till databas-fil som skapades tidigare. */
-//const db = new sqlite.Database('./gik339.db');
+const db = new sqlite.Database('./gik339.db');
 
 /* Importerar npm-paket express och lagrar i variabeln express */
 const express = require('express');
@@ -31,7 +31,6 @@ server.listen(3000, () => {
 
 /* Hantering av GET-requests till endpointen /countries */
 server.get('/countries', (req, res) => {
-    const db = new sqlite.Database('./gik339.db');
   /* sql-query för att hämta alla countries ur databasen. */
   const sql = 'SELECT * FROM countries';
   /* Anrop till db-objektets funktion .all som används till att hämta upp rader ur en tabell */
