@@ -1,10 +1,10 @@
 DROP TABLE IF EXISTS countries;
 CREATE TABLE IF NOT EXISTS countries(
    id        INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT
-  ,country VARCHAR(8) NOT NULL
-  ,capital  VARCHAR(9) NOT NULL
+  ,country VARCHAR(16) NOT NULL
+  ,capital  VARCHAR(16) NOT NULL
   ,language  VARCHAR(16) NOT NULL
-  ,continent     VARCHAR(6) NOT NULL
+  ,continent  VARCHAR(16) NOT NULL
 );
 INSERT INTO countries(country, capital, language, continent) VALUES ('Sweden', 'Stockholm', 'Swedish', 'Europe');
 INSERT INTO countries(country, capital, language, continent) VALUES ('USA', 'Washington, D.C.', 'English', 'North America');
