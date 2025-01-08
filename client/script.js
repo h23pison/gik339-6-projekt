@@ -53,10 +53,13 @@ function setCurrentCountry(id) {
     fetch(`${url}/${id}`, { method: 'DELETE' }).then((result) => fetchData());
   }
   
-  document.getElementById('addButton').addEventListener('submit', handleSubmit);
+  countryForm.addEventListener('submit', handleSubmit);
   
   function handleSubmit(e) {
     e.preventDefault();
+
+    const action = e.submitter.value;
+    
     const serverUserObject = {
         country: '',
         capital: '',
@@ -72,9 +75,15 @@ function setCurrentCountry(id) {
     if (id) {
         serverUserObject.id = id;
     }
-  
+    
+    const method = action === 'add' 
+        ? 'POST' 
+        : action === 'update' && serverUserObject.id 
+            ? 'PUT' 
+            : null;
+
     const request = new Request(url, {
-      method: serverUserObject.id ? 'PUT' : 'POST',
+      method: method,
       headers: {
         'content-type': 'application/json'
       },
