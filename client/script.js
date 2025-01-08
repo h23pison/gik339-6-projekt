@@ -53,7 +53,7 @@ function setCurrentCountry(id) {
     fetch(`${url}/${id}`, { method: 'DELETE' }).then((result) => fetchData());
   }
   
-  countryForm.addEventListener('submit', handleSubmit);
+  document.getElementById('addButton').addEventListener('submit', handleSubmit);
   
   function handleSubmit(e) {
     e.preventDefault();
@@ -67,44 +67,12 @@ function setCurrentCountry(id) {
     serverUserObject.capital = countryForm.capital.value;
     serverUserObject.language = countryForm.language.value;
     serverUserObject.continent = countryForm.continent.value;
-  
-    const request = new Request(url, {
-      method: serverUserObject.id ? 'PUT' : 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(serverUserObject)
-    });
-  
-    fetch(request).then((response) => {
-      fetchData();
-  
-      countryForm.reset();
-    });
-}
 
-    updateButton.addEventListener('button', handleUpdate);
-  
-    function handleUpdate(e) {
-        e.preventDefault();
-        if (serverUserObject.id = id) {
-        const serverUserObject = {
-            country: '',
-            capital: '',
-            language: '',
-            continent: ''
-    
-    };
-    serverUserObject.country = countryForm.country.value;
-    serverUserObject.capital = countryForm.capital.value;
-    serverUserObject.language = countryForm.language.value;
-    serverUserObject.continent = countryForm.continent.value;
-  
     const id = localStorage.getItem('currentId');
     if (id) {
         serverUserObject.id = id;
     }
-
+  
     const request = new Request(url, {
       method: serverUserObject.id ? 'PUT' : 'POST',
       headers: {
@@ -117,7 +85,7 @@ function setCurrentCountry(id) {
       fetchData();
   
       countryForm.reset();
+      localStorage.removeItem('currentId');
     });
-} else {
-    alert("Kuken står");
-}}
+}
+
