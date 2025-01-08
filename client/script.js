@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/countries';
+const url = 'http://localhost:3001/countries';
 
 window.addEventListener('load', fetchData);
 
@@ -18,7 +18,7 @@ function fetchData() {
                         <p class="card-text">Language: ${country.language}</p>
                         <p class="card-text">Continent: ${country.continent}</p>
                         <button class="btn btn-primary" onclick="setCurrentCountry(${country.id})">Change</button>
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger" onclick="deleteCountry(${country.id})">Delete</button>
                     </div>
                  </div>
             </li>`;
@@ -48,7 +48,7 @@ function setCurrentCountry(id) {
       });
   }
   
-  function deleteUser(id) {
+  function deleteCountry(id) {
     console.log('delete', id);
     fetch(`${url}/${id}`, { method: 'DELETE' }).then((result) => fetchData());
   }
@@ -58,20 +58,15 @@ function setCurrentCountry(id) {
   function handleSubmit(e) {
     e.preventDefault();
     const serverUserObject = {
-      firstName: '',
-      lastName: '',
-      username: '',
-      color: ''
+        country: '',
+        capital: '',
+        language: '',
+        continent: ''
     };
-    serverUserObject.firstName = countryForm.firstName.value;
-    serverUserObject.lastName = countryForm.lastName.value;
-    serverUserObject.username = countryForm.username.value;
-    serverUserObject.color = countryForm.color.value;
-  
-    const id = localStorage.getItem('currentId');
-    if (id) {
-      serverUserObject.id = id;
-    }
+    serverUserObject.country = countryForm.country.value;
+    serverUserObject.capital = countryForm.capital.value;
+    serverUserObject.language = countryForm.language.value;
+    serverUserObject.continent = countryForm.continent.value;
   
     const request = new Request(url, {
       method: serverUserObject.id ? 'PUT' : 'POST',
@@ -84,7 +79,45 @@ function setCurrentCountry(id) {
     fetch(request).then((response) => {
       fetchData();
   
-      localStorage.removeItem('currentId');
       countryForm.reset();
     });
 }
+
+    updateButton.addEventListener('button', handleUpdate);
+  
+    function handleUpdate(e) {
+        e.preventDefault();
+        if (serverUserObject.id = id) {
+        const serverUserObject = {
+            country: '',
+            capital: '',
+            language: '',
+            continent: ''
+    
+    };
+    serverUserObject.country = countryForm.country.value;
+    serverUserObject.capital = countryForm.capital.value;
+    serverUserObject.language = countryForm.language.value;
+    serverUserObject.continent = countryForm.continent.value;
+  
+    const id = localStorage.getItem('currentId');
+    if (id) {
+        serverUserObject.id = id;
+    }
+
+    const request = new Request(url, {
+      method: serverUserObject.id ? 'PUT' : 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(serverUserObject)
+    });
+  
+    fetch(request).then((response) => {
+      fetchData();
+  
+      countryForm.reset();
+    });
+} else {
+    alert("Kuken står");
+}}

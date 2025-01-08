@@ -22,23 +22,23 @@
                   </div>
                   <div class="card-body row gap-3">
                     <label for="country">Country</label>
-                    <input class="form-control" type="text" placeholder="Sweden" aria-label="default input example"/>
+                    <input class="form-control" type="text" placeholder="Sweden" aria-label="default input example" name="country"/>
                     <label for="capital">Capital city</label>
-                    <input class="form-control" type="text" placeholder="Fjollträsk" aria-label="default input example"/>
+                    <input class="form-control" type="text" placeholder="Fjollträsk" aria-label="default input example" name="capital"/>
                     <label for="language">Language</label>
-                    <input class="form-control" type="text" placeholder="Swedish" aria-label="default input example"/>
-                    <select class="form-select" id="inputGroupSelect01">
+                    <input class="form-control" type="text" placeholder="Swedish" aria-label="default input example" name="language"/>
+                    <select class="form-select" id="inputGroupSelect01" name="continent">
                         <option selected>Choose a continent</option>
-                        <option value="1">Europe</option>
-                        <option value="2">Asia</option>
-                        <option value="3">North America</option>
-                        <option value="3">South America</option>
-                        <option value="3">Oceania</option>
-                        <option value="3">Africa</option>
+                        <option value="Europe">Europe</option>
+                        <option value="Asia">Asia</option>
+                        <option value="North America">North America</option>
+                        <option value="South America">South America</option>
+                        <option value="Oceania">Oceania</option>
+                        <option value="Africa">Africa</option>
                       </select>
                     <div class="flex">
-                        <button href="#" class="btn btn-primary">Add</button>
-                        <button href="#" class="btn btn-primary">Update</button>
+                        <button class="btn btn-primary" id="addButton">Add</button>
+                        <button type="button" class="btn btn-primary" id="updateButton">Update</button>
                     </div>
                   </div>
                 </form>
