@@ -1,0 +1,58 @@
+body {
+    background: linear-gradient(#00809adb, #9198e5);
+}
+
+header {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+main {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.card {
+    margin-top: 1rem;
+    border-radius: 1rem;
+    border: solid black 2px;
+    
+}
+
+.card-body {
+    border-radius: 0.8rem;
+    
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr auto; 
+    gap: 1rem; 
+    align-items: left; 
+}
+
+.text-section {
+    text-align: left;
+}
+
+.image-container {
+    max-width: 20rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-container img {
+    border-radius: 1rem;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; 
+
+
+h5 {
+    border-radius: 3px;
+    margin-right: auto;
+}
+
+h1 {
+    
+}

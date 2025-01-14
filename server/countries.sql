@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS countries(
 );
 INSERT INTO countries(country, capital, language, continent) VALUES ('Sweden', 'Stockholm', 'Swedish', 'Europe');
 INSERT INTO countries(country, capital, language, continent) VALUES ('USA', 'Washington, D.C.', 'English', 'North America');
-INSERT INTO countries(country, capital, language, continent) VALUES ('Russia', 'Moscow', 'Russian', 'Europe/Asia');
+INSERT INTO countries(country, capital, language, continent) VALUES ('Russia', 'Moscow', 'Russian', 'Asia');
 INSERT INTO countries(country, capital, language, continent) VALUES ('Germany', 'Berlin', 'German', 'Europe');
 INSERT INTO countries(country, capital, language, continent) VALUES ('France', 'Paris', 'French', 'Europe');
 INSERT INTO countries(country, capital, language, continent) VALUES ('Spain', 'Madrid', 'Spanish', 'Europe');
