@@ -80,16 +80,6 @@ function fetchData() {
         const listContainer = document.getElementById('listContainer');
         listContainer.innerHTML = '';
         listContainer.insertAdjacentHTML('beforeend', htmlCard);
-        /* Lägger till en eventlistener för att ta bort ett land(kort): */
-        countries.forEach((country) => {
-          const deleteButton = document.getElementById(
-            `deleteButton${country.id}`
-          );
-          deleteButton.addEventListener('click', function () {
-            const countryId = this.getAttribute('data-id');
-            deleteCountry(countryId);
-          });
-        });
       }
     });
 }
@@ -214,12 +204,12 @@ async function handleSubmit(e) {
   if (id) {
     serverUserObject.id = id;
   }
-  // Determine method based on action type
+  // Väljer metod baserat på action
   const method =
     action === 'add'
-      ? 'POST' // post for adding
+      ? 'POST' // Post för att lägga till
       : action === 'update' && serverUserObject.id
-      ? 'PUT' // put for updating
+      ? 'PUT' // Put för uppdatering
       : null;
 
   // Visar en modal ruta för att bekräfta den knapp man tryckte.
