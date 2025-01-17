@@ -1,51 +1,43 @@
-/* Importera npm-paket sqlite3 med hjälp av require() och lagrar i variabeln sqlite */
+/* Importerar sqlite3 för att vi ska kunna arbeta med SQLite-databas, 
+importerar express för att skapa webserver med: */
 const sqlite = require('sqlite3').verbose();
-/* Skapar ny koppling till databas-fil som skapades tidigare. */
 const db = new sqlite.Database('./gik339.db');
 
-/* Importerar npm-paket express och lagrar i variabeln express */
 const express = require('express');
-/* Skapar server med hjälp av express */
+
 const server = express();
 
-/* Sätter konfiguration på servern */
+/* Sätter konfiguration på servern, ser till att data kommuniceras i JSON-format */
 server
-  /* Data ska kommuniceras i JSON-format */
   .use(express.json())
-  /* Sättet som data ska kodas och avkodas på */
   .use(express.urlencoded({ extended: false }))
   .use((req, res, next) => {
-    /* Headers för alla förfrågningar. Hanterar regler för CORS (vilka klienter som får anropa vår server och hur.) */
+
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
     res.header('Access-Control-Allow-Methods', '*');
-    /* Säger åt servern att fortsätta processa förfrågan */
+
     next();
   });
 
-/* Startar servern på port 3000 */
+/* Startar servern på port 3001 */
 server.listen(3001, () => {
-  /* Meddelande för feedback att servern körs */
   console.log('Server running on http://localhost:3001');
 });
 
-/* Hantering av GET-requests till endpointen /countries */
+/*Sätter hur GET-requests hanteras för endpointen /countries, sql-query för att hämta ur databasen: */ 
 server.get('/countries', (req, res) => {
-  /* sql-query för att hämta alla countries ur databasen. */
   const sql = 'SELECT * FROM countries';
-  /* Anrop till db-objektets funktion .all som används till att hämta upp rader ur en tabell */
   db.all(sql, (err, rows) => {
-    /* Callbackfunktionen har parametern err för att lagra eventuella fel */
     if (err) {
-      /* Om det finns något i det objektet skickar vi ett svar tillbaka att något gick fel (status 500) och info om vad som gick fel (innehållet i objektet err) */
-      res.status(500).send(err);
+      res.status(500).send(err); // Om någonting går fel, alltså om det finns något i objekter err
     } else {
-      /* Annars, om allt gick bra, skickar vi de rader som hämtades upp.  */
-      res.send(rows);
+      res.send(rows); // Om allt gick bra skickas alla rader i rows
     }
   });
 });
 
+/*Sätter hur GET-requests hanteras för endpointen /countries:id, sql-query för att hämta ur databasen: */ 
 server.get('/countries/:id', (req, res) => {
   const id = req.params.id;
 
@@ -60,6 +52,8 @@ server.get('/countries/:id', (req, res) => {
   });
 });
 
+/* Sätter hur förfrågningar för endpointen /countries ska hanteras, 
+används för att lägga till ett nytt land i databasen: */
 server.post('/countries', (req, res) => {
   const country = req.body;
   const sql = `INSERT INTO countries(country, capital, language, continent) VALUES (?,?,?,?)`;
@@ -74,10 +68,12 @@ server.post('/countries', (req, res) => {
   });
 });
 
+/* Sätter hur vi uppdaterar ett land som ligger i databasen: */
 server.put('/countries', (req, res) => {
   const bodyData = req.body;
 
-  const id = bodyData.id;
+  const id = bodyData.id; // hämtar id:t för det land som ska uppdateras
+  /* Sätter de nya värdena för landet: */
   const country = {
     country: bodyData.country,
     capital: bodyData.capital,
@@ -87,12 +83,13 @@ server.put('/countries', (req, res) => {
 
   let updateString = '';
   const columnsArray = Object.keys(country);
+  /* Lägger till det nya värdet för varje kolumn: */
   columnsArray.forEach((column, i) => {
     updateString += `${column}="${country[column]}"`;
     if (i !== columnsArray.length - 1) updateString += ',';
   });
+  /* Skapar och kör en SQL-förfrågan för att uppdatera landet med det valda id:t: */
   const sql = `UPDATE countries SET ${updateString} WHERE id=${id}`;
-
   db.run(sql, (err) => {
     if (err) {
       console.log(err);
@@ -101,9 +98,10 @@ server.put('/countries', (req, res) => {
       res.send('Landet uppdaterades');
     }
   });
-  //UPDATE countries SET firstName="Mikaela",lastName="Hedberg" WHERE id=1
 });
 
+/* Sätter hur vi tar bort ett land ur databasen m.h.a. inhämtat id och en SQL-förfrågan för att
+ta bort landet med det valda id:t:  */
 server.delete('/countries/:id', (req, res) => {
   const id = req.params.id;
   const sql = `DELETE FROM countries WHERE id = ${id}`;
